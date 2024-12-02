@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Olivia</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fef5e7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Gate Section */
+        #gate {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .gate-left,
+        .gate-right {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            background: #ff9a9e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2em;
+            font-weight: bold;
+            transition: transform 1.2s ease-in-out;
+        }
+
+        .gate-left {
+            left: 0;
+            transform-origin: left;
+        }
+
+        .gate-right {
+            right: 0;
+            transform-origin: right;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .gate-left.open {
+            transform: rotateY(-90deg);
+        }
+
+        .gate-right.open {
+            transform: rotateY(90deg);
+        }
+
+        #enter-text {
+            position: absolute;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            bottom: 10%;
+        }
+
+        /* Flip Card Section */
+        .card-container {
+            position: absolute;
+            width: 90%;
+            max-width: 320px;
+            height: 80%;
+            perspective: 1000px;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+        .flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: white;
+            font-size: 1.5em;
+            border: 2px solid #f7b2ad;
+            box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-back {
+            background: white;
+            color: #555;
+            font-size: 1em;
+            transform: rotateY(180deg);
+            border: 2px solid #f7b2ad;
+            box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .message {
+            padding: 10px;
+        }
+
+        .balloons {
+            font-size: 2em;
+            margin: 10px 0;
+        }
+
+        .name {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        /* Reveal Card */
+        .show-card {
+            opacity: 1;
+        }
+
+        .flip-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background: #ff7a85;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s;
+        }
+
+        .flip-button:hover {
+            background: #f76e79;
+        }
+    </style>
+</head>
+<body>
+    <!-- Gate -->
+    <div id="gate">
+        <div class="gate-left">🎈</div>
+        <div class="gate-right">🎉</div>
+        <div id="enter-text">Tap to Enter</div>
+    </div>
+
+    <!-- Birthday Card -->
+    <div class="card-container hidden" id="card-container">
+        <div class="card" id="card">
+            <!-- Front Face -->
+            <div class="card-face card-front">
+                <div>
+                    <div class="balloons">🎈🎉</div>
+                    <p>Open Me, Olivia!</p>
+                </div>
+            </div>
+            <!-- Back Face -->
+            <div class="card-face card-back">
+                <div class="message">
+                    <h1>Happy Birthday, Olivia!</h1>
+                    <p class="name">Dear Olivia,</p>
+                    <p>Wishing you a day as bright and special as you are. May all your dreams come true! 🎂💖</p>
+                    <div class="balloons">🎁✨</div>
+                </div>
+            </div>
+        </div>
+        <button class="flip-button" id="flip-button">Flip the Card</button>
+    </div>
+
+    <script>
+        const gateLeft = document.querySelector('.gate-left');
+        const gateRight = document.querySelector('.gate-right');
+        const gate = document.getElementById('gate');
+        const cardContainer = document.getElementById('card-container');
+        const card = document.getElementById('card');
+        const flipButton = document.getElementById('flip-button');
+
+        // Open the gate
+        gate.addEventListener('click', () => {
+            gateLeft.classList.add('open');
+            gateRight.classList.add('open');
+            setTimeout(() => {
+                gate.style.display = 'none';
+                cardContainer.classList.remove('hidden');
+                cardContainer.classList.add('show-card');
+            }, 1200);
+        });
+
+        // Flip the card
+        flipButton.addEventListener('click', () => {
+            card.classList.toggle('flipped');
+        });
+    </script>
+</body>
+</html>
